@@ -1,0 +1,161 @@
+/* styles/Auth.module.css */
+
+.page {
+  min-height: 100vh;
+  background: #f5f7ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+/* 상단 브랜드 */
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logoRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.smallIcon {
+  font-size: 18px;
+}
+
+.serviceName {
+  font-size: 18px;
+}
+
+.headerSub {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 메인 & 카드 */
+
+.main {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  background: #e3f0ff;
+  border-radius: 16px;
+  padding: 28px 26px 24px;
+  box-shadow: 0 18px 40px rgba(79, 114, 205, 0.25);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.cardDesc {
+  margin: 8px 0 18px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* 폼 */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formGroup {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+  padding: 10px 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.2);
+}
+
+.submitButton {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(90deg, #4f46e5, #60a5fa);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+}
+
+.submitButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.35);
+  opacity: 0.95;
+}
+
+/* 하단 링크 */
+
+.switchText {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.switchLink {
+  color: #4f46e5;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}
+
+/* 반응형 */
+
+@media (max-width: 480px) {
+  .card {
+    padding-inline: 20px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+  }
+}
