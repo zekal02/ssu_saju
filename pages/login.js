@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-// import axios from 'axios';
 import { supabase } from '../lib/supabaseClient';
 import styles from '../styles/Auth.module.css';
 
@@ -12,9 +11,11 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // 이메일 로그인 로딩
+  const [oauthLoading, setOauthLoading] = useState(false); // 카카오 로그인 로딩
   const [errorMsg, setErrorMsg] = useState('');
 
+  // 이메일 / 비밀번호 로그인
   async function handleSubmit(e) {
     e.preventDefault();
     setErrorMsg('');
@@ -27,7 +28,6 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      // 🔥 Supabase 로그인
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -40,8 +40,6 @@ export default function LoginPage() {
       }
 
       console.log('Supabase 로그인 성공:', data);
-
-      // 로그인 성공 → 사주 페이지로 이동
       router.push('/saju');
     } catch (err) {
       console.error(err);
@@ -50,26 +48,38 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+
+  // 카카오톡 로그인
   async function handleKakaoLogin() {
     setErrorMsg('');
 
-    const redirectTo =
-      typeof window !== 'undefined'
-        ? `${window.location.origin}/saju` // 로그인 성공 후 돌아올 페이지
-        : undefined;
+    try {
+      setOauthLoading(true);
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo, // Supabase Auth → Kakao → 다시 우리 사이트로
-      },
-    });
+      const redirectTo =
+        typeof window !== 'undefined'
+          ? `${window.location.origin}/saju` // 로그인 후 돌아올 페이지
+          : undefined;
 
-    if (error) {
-      console.error(error);
-      setErrorMsg(error.message || '카카오 로그인 중 오류가 발생했습니다.');
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'kakao',
+        options: { redirectTo },
+      });
+
+      if (error) {
+        console.error(error);
+        setErrorMsg(error.message || '카카오 로그인 중 오류가 발생했습니다.');
+        return;
+      }
+
+      console.log('카카오 로그인 요청 완료:', data);
+      // 실제 리다이렉트는 Supabase가 알아서 처리
+    } catch (err) {
+      console.error(err);
+      setErrorMsg('카카오 로그인 중 알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setOauthLoading(false);
     }
-    // 실제 리다이렉트는 Supabase가 알아서 처리해서 여기서 별도 router.push는 필요 없음
   }
 
   return (
@@ -129,11 +139,26 @@ export default function LoginPage() {
               <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={loading}
+                disabled={loading || oauthLoading}
               >
                 {loading ? '로그인 중...' : '➜ 로그인'}
               </button>
             </form>
+
+            {/* 구분선 */}
+            <div style={{ margin: '12px 0', fontSize: 12, color: '#9ca3af' }}>
+              ─── 또는 ───
+            </div>
+
+            {/* 카카오톡 로그인 버튼 */}
+            <button
+              type="button"
+              onClick={handleKakaoLogin}
+              disabled={oauthLoading || loading}
+              className={styles.kakaoButton}
+            >
+              {oauthLoading ? '카카오 로그인 중...' : '카카오톡으로 로그인'}
+            </button>
 
             <p className={styles.switchText}>
               계정이 없으신가요?{' '}
