@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // 이메일 로그인 로딩
-  const [oauthLoading, setOauthLoading] = useState(false); // 카카오 로그인 로딩
+  const [oauthLoading, setOauthLoading] = useState(false); // 구글 로그인 로딩
   const [errorMsg, setErrorMsg] = useState('');
 
   // 이메일 / 비밀번호 로그인
@@ -49,8 +49,8 @@ export default function LoginPage() {
     }
   }
 
-  // 카카오톡 로그인
-  async function handleKakaoLogin() {
+  // 🔥 구글 로그인
+  async function handleGoogleLogin() {
     setErrorMsg('');
 
     try {
@@ -58,25 +58,25 @@ export default function LoginPage() {
 
       const redirectTo =
         typeof window !== 'undefined'
-          ? `${window.location.origin}/saju` // 로그인 후 돌아올 페이지
+          ? `${window.location.origin}/saju` // 로그인 성공 후 돌아올 페이지
           : undefined;
 
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'kakao',
+        provider: 'google',
         options: { redirectTo },
       });
 
       if (error) {
         console.error(error);
-        setErrorMsg(error.message || '카카오 로그인 중 오류가 발생했습니다.');
+        setErrorMsg(error.message || '구글 로그인 중 오류가 발생했습니다.');
         return;
       }
 
-      console.log('카카오 로그인 요청 완료:', data);
+      console.log('구글 로그인 요청 완료:', data);
       // 실제 리다이렉트는 Supabase가 알아서 처리
     } catch (err) {
       console.error(err);
-      setErrorMsg('카카오 로그인 중 알 수 없는 오류가 발생했습니다.');
+      setErrorMsg('구글 로그인 중 알 수 없는 오류가 발생했습니다.');
     } finally {
       setOauthLoading(false);
     }
@@ -141,7 +141,7 @@ export default function LoginPage() {
                 className={styles.submitButton}
                 disabled={loading || oauthLoading}
               >
-                {loading ? '로그인 중...' : '➜ 로그인'}
+                {loading ? '로그인 중...' : '➜ 이메일로 로그인'}
               </button>
             </form>
 
@@ -150,14 +150,14 @@ export default function LoginPage() {
               ─── 또는 ───
             </div>
 
-            {/* 카카오톡 로그인 버튼 */}
+            {/* 구글 로그인 버튼 */}
             <button
               type="button"
-              onClick={handleKakaoLogin}
+              onClick={handleGoogleLogin}
               disabled={oauthLoading || loading}
-              className={styles.kakaoButton}
+              className={styles.googleButton}
             >
-              {oauthLoading ? '카카오 로그인 중...' : '카카오톡으로 로그인'}
+              {oauthLoading ? '구글 로그인 중...' : 'Google 계정으로 로그인'}
             </button>
 
             <p className={styles.switchText}>
