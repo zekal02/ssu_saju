@@ -50,6 +50,27 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+  async function handleKakaoLogin() {
+    setErrorMsg('');
+
+    const redirectTo =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}/saju` // 로그인 성공 후 돌아올 페이지
+        : undefined;
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: {
+        redirectTo, // Supabase Auth → Kakao → 다시 우리 사이트로
+      },
+    });
+
+    if (error) {
+      console.error(error);
+      setErrorMsg(error.message || '카카오 로그인 중 오류가 발생했습니다.');
+    }
+    // 실제 리다이렉트는 Supabase가 알아서 처리해서 여기서 별도 router.push는 필요 없음
+  }
 
   return (
     <>
