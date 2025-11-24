@@ -212,3 +212,9 @@
     font-size: 14px;
   }
 }
+
+.adSection {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}

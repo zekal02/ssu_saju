@@ -68,7 +68,8 @@ export default function Home() {
               <div className={styles.featureIcon}>⭐</div>
               <h3 className={styles.featureTitle}>맞춤 운세</h3>
               <p className={styles.featureText}>
-                재물운, 애정운, 건강운 등<br />
+                재물운, 애정운, 건강운 등
+                <br />
                 종합적인 운세 정보를 제공합니다.
               </p>
             </div>
@@ -90,10 +91,11 @@ export default function Home() {
               <span>맞춤형 운세</span>
             </p>
           </section>
-          <div>
-            {/* 사주 폼 / 결과 ... */}
-            <AdBanner /> {/* 이 위치에 광고가 들어감 */}
-          </div>
+
+          {/* 광고 영역 */}
+          <section className={styles.homeAdSection}>
+            <AdBanner />
+          </section>
         </main>
       </div>
     </>
