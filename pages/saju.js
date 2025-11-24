@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import styles from '@/styles/Saju.module.css';
+import AdBanner from '../components/AdBanner';
 
 export default function SajuPage() {
   const [birth, setBirth] = useState(''); // 생년월일 (YYYY-MM-DD)
@@ -197,6 +198,10 @@ export default function SajuPage() {
             )}
           </section>
         )}
+        <div>
+          {/* 사주 폼 / 결과 ... */}
+          <AdBanner /> {/* 이 위치에 광고가 들어감 */}
+        </div>
       </main>
     </div>
   );
