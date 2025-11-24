@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+import AdBanner from '../components/AdBanner';
 
 export default function Home() {
   return (
@@ -89,6 +90,10 @@ export default function Home() {
               <span>맞춤형 운세</span>
             </p>
           </section>
+          <div>
+            {/* 사주 폼 / 결과 ... */}
+            <AdBanner /> {/* 이 위치에 광고가 들어감 */}
+          </div>
         </main>
       </div>
     </>
