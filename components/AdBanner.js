@@ -12,12 +12,13 @@ export default function AdBanner() {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (e) {
-      console.error(e);
+      console.error('adsbygoogle error:', e);
     }
   }, []);
 
   // 환경 변수가 없으면 렌더 안 함 (개발 중 에러 방지용)
   if (!AD_CLIENT || !AD_SLOT) {
+    console.warn('AdSense 설정이 비어 있습니다.', { AD_CLIENT, AD_SLOT });
     return null;
   }
 
@@ -31,4 +32,4 @@ export default function AdBanner() {
       data-full-width-responsive="true"
     />
   );
-}
+} // ← 이 마지막 } 꼭 있어야 합니다
