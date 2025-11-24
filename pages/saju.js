@@ -174,34 +174,37 @@ export default function SajuPage() {
           </form>
         </section>
 
-        {/* 결과 카드 */}
+        {/* 결과 + 광고 영역 */}
         {answer && (
-          <section className={styles.resultCard}>
-            <h3 className={styles.resultTitle}>운세 결과</h3>
-            <p className={styles.resultText}>{answer}</p>
+          <>
+            <section className={styles.resultCard}>
+              <h3 className={styles.resultTitle}>운세 결과</h3>
+              <p className={styles.resultText}>{answer}</p>
 
-            <button
-              onClick={handleLuckyItem}
-              disabled={loadingLucky}
-              className={styles.luckyButton}
-            >
-              {loadingLucky
-                ? '행운의 물건 찾는 중...'
-                : '🍀 오늘의 행운의 물건 보기'}
-            </button>
+              <button
+                onClick={handleLuckyItem}
+                disabled={loadingLucky}
+                className={styles.luckyButton}
+              >
+                {loadingLucky
+                  ? '행운의 물건 찾는 중...'
+                  : '🍀 오늘의 행운의 물건 보기'}
+              </button>
 
-            {luckyItem && (
-              <div className={styles.luckyBox}>
-                <h4 className={styles.luckyTitle}>오늘의 행운의 물건</h4>
-                <p className={styles.resultText}>{luckyItem}</p>
-              </div>
-            )}
-          </section>
+              {luckyItem && (
+                <div className={styles.luckyBox}>
+                  <h4 className={styles.luckyTitle}>오늘의 행운의 물건</h4>
+                  <p className={styles.resultText}>{luckyItem}</p>
+                </div>
+              )}
+            </section>
+
+            {/* 광고 영역 - 결과 아래에 한 번만 노출 */}
+            <section className={styles.adSection}>
+              <AdBanner />
+            </section>
+          </>
         )}
-        <div>
-          {/* 사주 폼 / 결과 ... */}
-          <AdBanner /> {/* 이 위치에 광고가 들어감 */}
-        </div>
       </main>
     </div>
   );
